@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -76,6 +75,18 @@ const Marketplace = () => {
     } else {
       return <Badge className="bg-red-100 text-red-800">Out of Stock</Badge>;
     }
+  };
+
+  const getProductImage = (productName: string) => {
+    const imageMap: { [key: string]: string } = {
+      "Rice Husk": "/Rice Husk.jpg",
+      "Wheat Straw": "/Wheat Straw.jpg",
+      "Sugarcane Bagasse": "/Sugarcane Bagasse.jpg",
+      "Coconut Fiber": "/Coconut Fiber.jpg",
+      "Peanut Shell": "/Peanut Shell.jpg",
+      "Corn Stalks": "/Corn Stalks.jpg",
+    };
+    return imageMap[productName] || "/Cotton Waste.jpg";
   };
 
   if (loading) {
@@ -162,7 +173,7 @@ const Marketplace = () => {
               <CardHeader className="pb-4">
                 <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-4 overflow-hidden relative">
                   <img 
-                    src={product.image_url || '/placeholder-crop.jpg'} 
+                    src={getProductImage(product.crop_residue_type)}
                     alt={product.crop_residue_type}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                     onError={(e) => {
